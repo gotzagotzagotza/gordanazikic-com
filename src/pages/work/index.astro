@@ -54,25 +54,13 @@ const collaborations = [
     title: "Movement / Traces",
     slug: "movement-traces",
     type: "Ongoing research · Installation · AR in development",
-    image: "/images/collaborations/movement-traces.jpg",
+    image: "/images/collaborations/lead.jpg",
   },
   {
-    title: "Rewriting History",
-    slug: "rewriting-history",
-    type: "Performance · 2015",
-    image: "/images/collaborations/rewriting-history.jpg",
-  },
-  {
-    title: "Viewpoints",
-    slug: "viewpoints",
-    type: "Performance improvisation · 2013",
-    image: "/images/collaborations/viewpoints.jpg",
-  },
-  {
-    title: "Bird Song",
-    slug: "bird-song",
-    type: "Illustration · Publication · 2016",
-    image: "/images/collaborations/bird-song.jpg",
+    title: "Black Box",
+    slug: "black-box",
+    type: "Solo exhibition · KC Grad & Remont Gallery, Belgrade · 2015",
+    image: "/images/collaborations/02.jpg",
   },
 ];
 ---
@@ -141,8 +129,8 @@ const collaborations = [
   }
 
   .projects-grid--small {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 3rem;
   }
 
   .collaborations-section {
@@ -166,12 +154,6 @@ const collaborations = [
     font-size: 0.9rem;
     color: var(--muted);
     font-style: italic;
-  }
-
-  @media (max-width: 900px) {
-    .projects-grid--small {
-      grid-template-columns: repeat(2, 1fr);
-    }
   }
 
   @media (max-width: 640px) {
