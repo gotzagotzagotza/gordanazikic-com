@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Gordana Zikic — Interdisciplinary Artist">
+  <Nav slot="nav" />
+
+  <section class="hero">
+    <div class="hero-image-wrap">
+      <img
+        src="/images/hero.jpg"
+        alt="Gordana Zikic"
+        class="hero-image"
+        loading="eager"
+        onerror="this.style.display='none'"
+      />
+      <div class="hero-image-fallback" aria-hidden="true"></div>
+    </div>
+    <div class="hero-name">
+      <h1>Gordana Zikic</h1>
+      <p class="hero-subtitle mono">Interdisciplinary Artist · Barcelona</p>
+    </div>
+  </section>
+
+  <section class="intro container">
+    <p class="intro-text">
+      Twenty years of practice across painting, installation, performance,
+      photography, and wearable objects — always at the threshold of embodied
+      experience, shamanic research, and contemporary life.
+    </p>
+    <a href="/work" class="intro-link mono">View work →</a>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .hero {
+    position: relative;
+    height: calc(100vh - var(--nav-height));
+    min-height: 500px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-image-wrap {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-image-fallback {
+    position: absolute;
+    inset: 0;
+    background: #2a2420;
+    z-index: -1;
+  }
+
+  .hero-name {
+    position: relative;
+    z-index: 1;
+    padding: 3rem;
+    color: #f7f4f0;
+  }
+
+  .hero-name h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+  }
+
+  .hero-subtitle {
+    color: rgba(247, 244, 240, 0.8);
+  }
+
+  .intro {
+    padding: 5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 680px;
+  }
+
+  .intro-text {
+    font-size: 1.25rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .intro-link {
+    display: inline-block;
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+    transition: opacity 0.15s;
+  }
+
+  .intro-link:hover {
+    opacity: 0.75;
+  }
+
+  @media (max-width: 768px) {
+    .hero-name {
+      padding: 2rem 1.25rem;
+    }
+  }
+</style>

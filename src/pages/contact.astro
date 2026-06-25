@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Contact — Gordana Zikic"
+  description="Contact Gordana Zikic — interdisciplinary artist based in Barcelona."
+>
+  <Nav slot="nav" />
+
+  <div class="container contact-page">
+    <header>
+      <span class="section-rule"></span>
+      <h1>Contact</h1>
+    </header>
+
+    <div class="contact-body">
+      <div class="contact-item">
+        <span class="mono contact-label">Email</span>
+        <a href="mailto:dragon277@gmail.com" class="contact-value">dragon277@gmail.com</a>
+      </div>
+
+      <div class="contact-item">
+        <span class="mono contact-label">Instagram</span>
+        <div class="contact-links">
+          <a href="https://instagram.com/gotza_gotza" target="_blank" rel="noopener" class="contact-value">@gotza_gotza</a>
+          <a href="https://instagram.com/gotza_gotza_art" target="_blank" rel="noopener" class="contact-value">@gotza_gotza_art</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <span class="mono contact-label">VSG</span>
+        <a href="https://instagram.com/virtual_studio_groups" target="_blank" rel="noopener" class="contact-value">@virtual_studio_groups</a>
+      </div>
+
+      <div class="contact-item">
+        <span class="mono contact-label">BAIR</span>
+        <a href="https://instagram.com/belgrade_artist_in_residence" target="_blank" rel="noopener" class="contact-value">@belgrade_artist_in_residence</a>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .contact-page {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    max-width: 640px;
+  }
+
+  header {
+    margin-bottom: 3.5rem;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  .contact-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .contact-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0 2rem;
+    align-items: baseline;
+  }
+
+  .contact-label {
+    font-size: 0.68rem;
+    color: var(--muted);
+    padding-top: 0.1rem;
+  }
+
+  .contact-value {
+    font-size: 1.05rem;
+    display: block;
+    transition: color 0.15s;
+  }
+
+  .contact-value:hover {
+    color: var(--accent);
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  @media (max-width: 480px) {
+    .contact-item {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+  }
+</style>

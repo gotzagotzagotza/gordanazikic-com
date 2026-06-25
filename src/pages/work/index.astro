@@ -1,0 +1,188 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const soloProjects = [
+  {
+    title: "Red Deer",
+    slug: "red-deer",
+    type: "Installation · PhD research",
+    image: "/images/red-deer/lead.jpg",
+  },
+  {
+    title: "El Mar Hirviendo",
+    slug: "el-mar-hirviendo",
+    type: "Photography · Painting · Ongoing research",
+    image: "/images/el-mar-hirviendo/lead.jpg",
+  },
+  {
+    title: "Somorrostro",
+    slug: "somorrostro",
+    type: "Material research · Archaeology of place",
+    image: "/images/somorrostro/lead.jpg",
+  },
+  {
+    title: "Ritual Actions",
+    slug: "ritual-actions",
+    type: "Performance · Ritual",
+    image: "/images/performances/lead.jpg",
+  },
+  {
+    title: "Ritual Photographs",
+    slug: "ritual-photographs",
+    type: "Photography",
+    image: "/images/ritual-photographs/lead.jpg",
+  },
+  {
+    title: "Painting and Drawing",
+    slug: "painting-drawing",
+    type: "Painting · Drawing",
+    image: "/images/painting-drawing/lead.jpg",
+  },
+  {
+    title: "Wearable Objects",
+    slug: "wearable-objects",
+    type: "Copper enamel · Ceramic · Found materials",
+    image: "/images/wearable-objects/lead.jpg",
+  },
+];
+
+const collaborations = [
+  {
+    title: "Movement / Traces",
+    slug: "movement-traces",
+    type: "Ongoing research · Installation · AR in development",
+    image: "/images/collaborations/movement-traces.jpg",
+  },
+  {
+    title: "Rewriting History",
+    slug: "rewriting-history",
+    type: "Performance · 2015",
+    image: "/images/collaborations/rewriting-history.jpg",
+  },
+  {
+    title: "Viewpoints",
+    slug: "viewpoints",
+    type: "Performance improvisation · 2013",
+    image: "/images/collaborations/viewpoints.jpg",
+  },
+  {
+    title: "Bird Song",
+    slug: "bird-song",
+    type: "Illustration · Publication · 2016",
+    image: "/images/collaborations/bird-song.jpg",
+  },
+];
+---
+
+<Layout title="Work — Gordana Zikic">
+  <Nav slot="nav" />
+
+  <div class="container work-page">
+    <header class="work-header">
+      <span class="section-rule"></span>
+      <h1>Work</h1>
+    </header>
+
+    <div class="projects-grid">
+      {soloProjects.map((project) => (
+        <ProjectCard
+          title={project.title}
+          slug={project.slug}
+          type={project.type}
+          image={project.image}
+        />
+      ))}
+    </div>
+
+    <div class="collaborations-section">
+      <div class="collab-divider">
+        <span class="mono collab-label">Collaborative projects</span>
+        <p class="collab-note">Selected collaborations with other artists. Solo practice above.</p>
+      </div>
+      <div class="projects-grid projects-grid--small">
+        {collaborations.map((project) => (
+          <ProjectCard
+            title={project.title}
+            slug={project.slug}
+            type={project.type}
+            image={project.image}
+            small={true}
+            bordered={true}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .work-page {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+
+  .work-header {
+    margin-bottom: 3rem;
+  }
+
+  .work-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3.5rem 3rem;
+  }
+
+  .projects-grid--small {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .collaborations-section {
+    margin-top: 6rem;
+  }
+
+  .collab-divider {
+    padding-bottom: 2.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .collab-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .collab-note {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  @media (max-width: 900px) {
+    .projects-grid--small {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .projects-grid--small {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+</style>
