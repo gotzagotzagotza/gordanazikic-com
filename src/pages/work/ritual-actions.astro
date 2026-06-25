@@ -1,0 +1,300 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const performances = [
+  {
+    title: "Black Rabbit is Taming the Time",
+    year: "2025",
+    location: "Brano, Gothenburg and Grangarde, Sweden",
+    slug: "black-rabbit",
+    images: [
+      "/images/performances/black-rabbit/lead.jpg",
+      "/images/performances/black-rabbit/02.jpg",
+      "/images/performances/black-rabbit/03.jpg",
+      "/images/performances/black-rabbit/04.jpg",
+    ],
+  },
+  {
+    title: "Empty Head",
+    year: "2024",
+    location: "Araucaria Gallery, Barcelona",
+    slug: "empty-head",
+    images: [
+      "/images/performances/empty-head/lead.jpg",
+      "/images/performances/empty-head/02.jpg",
+      "/images/performances/empty-head/03.jpg",
+      "/images/performances/empty-head/04.jpg",
+    ],
+  },
+  {
+    title: "Dark Cloud and Gold Wind",
+    year: "2024",
+    location: "Fuerteventura, Canary Islands",
+    slug: "dark-cloud",
+    images: [
+      "/images/performances/dark-cloud/lead.jpg",
+      "/images/performances/dark-cloud/02.jpg",
+      "/images/performances/dark-cloud/03.jpg",
+      "/images/performances/dark-cloud/04.jpg",
+    ],
+  },
+  {
+    title: "Pulse",
+    year: "2024",
+    location: "The Local AIR, Valencia",
+    slug: "pulse",
+    images: ["/images/performances/pulse/lead.jpg"],
+  },
+  {
+    title: "Dodole",
+    year: "2024",
+    location: "Entresuelos, Barcelona",
+    slug: "dodole",
+    images: [],
+  },
+  {
+    title: "Kiss Me",
+    year: "2024",
+    location: "Barcelona",
+    slug: "kiss-me",
+    note: "Began with a dream in 2019 — a kiss through glass that felt as real as if nothing separated the two people. The question: does the barrier change what is felt, or only what we allow ourselves? The performance invites strangers to kiss through glass, a gesture the glass makes possible precisely because it is there.",
+    images: [],
+  },
+  {
+    title: "Home / Let It Be",
+    year: "2023",
+    location: "Entresuelos, Barcelona",
+    slug: "home-let-it-be",
+    images: [
+      "/images/performances/home/lead.jpg",
+      "/images/performances/let-it-be/lead.jpg",
+    ],
+  },
+  {
+    title: "Thank You and Good Bye",
+    year: "2021–2023",
+    location: "Belgrade",
+    slug: "thank-you",
+    images: [
+      "/images/performances/thank-you/lead.jpg",
+      "/images/performances/thank-you/02.jpg",
+      "/images/performances/thank-you/03.jpg",
+    ],
+  },
+  {
+    title: "La Sombra",
+    year: "2019",
+    location: "Barcelona",
+    slug: "la-sombra",
+    images: [
+      "/images/performances/la-sombra/lead.jpg",
+      "/images/performances/la-sombra/02.jpg",
+      "/images/performances/la-sombra/03.jpg",
+    ],
+  },
+  {
+    title: "Gold Wings",
+    year: "2019",
+    location: "Belgrade",
+    slug: "gold-wings",
+    images: [],
+  },
+  {
+    title: "Voice of the Rain",
+    year: "2019",
+    location: "Magacin, Belgrade",
+    slug: "voice-rain",
+    images: [],
+  },
+  {
+    title: "Cutting Off the Bonds",
+    year: "2018",
+    location: "Gothenburg",
+    slug: "cutting-bonds",
+    images: [],
+  },
+  {
+    title: "Rabbit",
+    year: "2017",
+    location: "Gothenburg",
+    slug: "rabbit",
+    images: [],
+  },
+  {
+    title: "Seagulls",
+    year: "2012",
+    location: "Barcelona",
+    slug: "seagulls",
+    images: [],
+  },
+];
+---
+
+<Layout
+  title="Ritual Actions — Gordana Zikic"
+  description="Ritual Actions — performances by Gordana Zikic, 2012–2025."
+>
+  <Nav slot="nav" />
+
+  <article class="project-page">
+    <div class="container">
+      <header class="project-header">
+        <a href="/work" class="back mono">← Work</a>
+        <h1 class="project-title">Ritual Actions</h1>
+        <span class="type-tag mono">Performance · Ritual</span>
+      </header>
+
+      <div class="section-intro">
+        <span class="section-rule"></span>
+        <p class="intro-text">
+          These are not theatrical performances. They arise from personal necessity — the need to cross a threshold,
+          release a pattern, or mark a transition. The body is prepared through marking, costuming, and material —
+          not for an audience but for the act itself. What is made public is the ritual, not a representation of it.
+          The audience witnesses; they are not the reason it exists.
+        </p>
+      </div>
+    </div>
+
+    <div class="lead-image-wrap">
+      <img src="/images/performances/lead.jpg" alt="Ritual Actions — performance documentation" loading="eager" class="lead-image" />
+    </div>
+
+    <div class="container performance-list">
+      {performances.map((p) => (
+        <div class="performance-item" id={p.slug}>
+          <div class="performance-header">
+            <h2 class="performance-title">{p.title}</h2>
+            <span class="mono performance-meta">{p.year} · {p.location}</span>
+            {p.note && <p class="performance-note">{p.note}</p>}
+          </div>
+          {p.images.length > 0 && (
+            <div class="performance-images">
+              {p.images.map((src) => (
+                <div class="perf-img-wrap">
+                  <img src={src} alt={`${p.title} — ${p.location}`} loading="lazy" onerror="this.parentElement.style.display='none'" />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </article>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">×</button>
+    <img src="" alt="" class="lightbox-image" id="lightbox-img" />
+  </div>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .project-page { padding-top: 3rem; }
+  .project-header { margin-bottom: 2rem; }
+  .back { display: inline-block; margin-bottom: 1.5rem; transition: color 0.15s; }
+  .back:hover { color: var(--accent); }
+  .project-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; margin-bottom: 0.75rem; line-height: 1.1; }
+  .type-tag { display: inline-block; border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 2px; }
+
+  .section-intro { max-width: var(--content-width); margin-bottom: 3rem; }
+  .intro-text { font-size: 1.05rem; line-height: 1.8; font-style: italic; color: var(--muted); }
+
+  .lead-image-wrap { width: 100%; max-height: 85vh; overflow: hidden; margin: 2rem 0; background: #2a2420; }
+  .lead-image { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; cursor: zoom-in; }
+
+  .performance-list {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+  }
+
+  .performance-item {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .performance-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .performance-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .performance-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.35rem;
+  }
+
+  .performance-meta {
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .performance-note {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--muted);
+    font-style: italic;
+    max-width: 640px;
+    margin-top: 0.75rem;
+  }
+
+  .performance-images {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  .perf-img-wrap {
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    background: #e8e4de;
+    cursor: zoom-in;
+  }
+
+  .perf-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .perf-img-wrap:hover img {
+    transform: scale(1.03);
+  }
+
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; }
+  .lightbox.open { display: flex; }
+  .lightbox-image { max-width: 92vw; max-height: 92vh; object-fit: contain; }
+  .lightbox-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: white; font-size: 2.5rem; cursor: pointer; line-height: 1; opacity: 0.8; font-family: var(--font-heading); }
+  .lightbox-close:hover { opacity: 1; }
+
+  @media (max-width: 768px) {
+    .performance-images { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<script>
+  const lightbox = document.getElementById('lightbox')!;
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const closeBtn = document.getElementById('lightbox-close')!;
+  document.querySelectorAll('.lead-image, .perf-img-wrap img').forEach((img) => {
+    img.addEventListener('click', () => {
+      const el = img as HTMLImageElement;
+      lightboxImg.src = el.src;
+      lightboxImg.alt = el.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  const closeLightbox = () => { lightbox.classList.remove('open'); document.body.style.overflow = ''; };
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+</script>

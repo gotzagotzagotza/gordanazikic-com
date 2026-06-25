@@ -1,0 +1,146 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const images = [
+  "/images/ritual-photographs/lead.jpg",
+  "/images/ritual-photographs/02.jpg",
+  "/images/ritual-photographs/03.jpg",
+  "/images/ritual-photographs/04.jpg",
+  "/images/ritual-photographs/05.jpg",
+  "/images/ritual-photographs/06.jpg",
+  "/images/ritual-photographs/07.jpg",
+  "/images/ritual-photographs/08.jpg",
+];
+---
+
+<Layout
+  title="Ritual Photographs — Gordana Zikic"
+  description="Ritual Photographs — the body in ritual state. Archival pigment prints, limited editions."
+>
+  <Nav slot="nav" />
+
+  <article class="project-page">
+    <div class="container">
+      <header class="project-header">
+        <a href="/work" class="back mono">← Work</a>
+        <h1 class="project-title">Ritual Photographs</h1>
+        <p class="mono project-meta">Photography · Archival pigment prints · Limited editions</p>
+        <span class="type-tag mono">Photography</span>
+      </header>
+
+      <div class="project-description">
+        <span class="section-rule"></span>
+        <p>
+          These photographs are not documentation of performances but works conceived as images — the body in ritual
+          state, prepared and present. Marking, costuming, and symbolic material transform the body into the site of
+          the work. Each image is available as a limited edition print.
+        </p>
+      </div>
+    </div>
+
+    <div class="photo-grid container">
+      {images.map((src, i) => (
+        <div class="photo-item">
+          <img
+            src={src}
+            alt={`Ritual Photographs — ${i + 1}`}
+            loading={i < 2 ? "eager" : "lazy"}
+            onerror="this.parentElement.style.display='none'"
+          />
+        </div>
+      ))}
+    </div>
+
+    <div class="container prints-note">
+      <p class="mono">Each image available as a limited edition archival pigment print. Inquiries: <a href="/contact">contact</a></p>
+    </div>
+  </article>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">×</button>
+    <img src="" alt="" class="lightbox-image" id="lightbox-img" />
+  </div>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .project-page { padding-top: 3rem; }
+  .project-header { margin-bottom: 2rem; }
+  .back { display: inline-block; margin-bottom: 1.5rem; transition: color 0.15s; }
+  .back:hover { color: var(--accent); }
+  .project-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; margin-bottom: 0.75rem; line-height: 1.1; }
+  .project-meta { margin-bottom: 0.75rem; color: var(--muted); }
+  .type-tag { display: inline-block; border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 2px; }
+
+  .project-description {
+    max-width: var(--content-width);
+    margin-bottom: 3rem;
+  }
+
+  .project-description p { font-size: 1.15rem; line-height: 1.75; }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  .photo-item {
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    background: #e8e4de;
+    cursor: zoom-in;
+  }
+
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .photo-item:hover img {
+    transform: scale(1.03);
+  }
+
+  .prints-note {
+    padding-bottom: 4rem;
+    color: var(--muted);
+  }
+
+  .prints-note a {
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
+  }
+
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; }
+  .lightbox.open { display: flex; }
+  .lightbox-image { max-width: 92vw; max-height: 92vh; object-fit: contain; }
+  .lightbox-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: white; font-size: 2.5rem; cursor: pointer; line-height: 1; opacity: 0.8; font-family: var(--font-heading); }
+  .lightbox-close:hover { opacity: 1; }
+
+  @media (max-width: 768px) { .photo-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+
+<script>
+  const lightbox = document.getElementById('lightbox')!;
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const closeBtn = document.getElementById('lightbox-close')!;
+  document.querySelectorAll('.photo-item img').forEach((img) => {
+    img.addEventListener('click', () => {
+      const el = img as HTMLImageElement;
+      lightboxImg.src = el.src;
+      lightboxImg.alt = el.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  const closeLightbox = () => { lightbox.classList.remove('open'); document.body.style.overflow = ''; };
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+</script>
