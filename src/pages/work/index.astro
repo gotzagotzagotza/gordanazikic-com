@@ -32,7 +32,7 @@ const collaborations = [
       {sections.map((s) => (
         <a href={`/work/${s.slug}`} class="section-card">
           <div class="card-image">
-            <Placeholder label={s.title} minHeight="320px" />
+            <Placeholder label={s.title} />
           </div>
           <div class="card-info">
             <span class="mono card-type">{s.type}</span>
@@ -50,7 +50,7 @@ const collaborations = [
         {collaborations.map((c) => (
           <a href={`/work/${c.slug}`} class="collab-card">
             <div class="collab-image">
-              <Placeholder label={c.title} minHeight="220px" />
+              <Placeholder label={c.title} />
             </div>
             <div class="collab-info">
               <span class="mono collab-with">{c.with}</span>

@@ -41,7 +41,7 @@ const { title, section, sectionSlug, type, meta, imageCount = 6 } = Astro.props;
       <slot name="images">
         {Array.from({ length: imageCount }).map((_, i) => (
           <div class="grid-item">
-            <Placeholder label={title} minHeight="280px" />
+            <Placeholder label={title} />
           </div>
         ))}
       </slot>
