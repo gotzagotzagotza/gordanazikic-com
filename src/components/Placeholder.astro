@@ -1,0 +1,26 @@
+---
+interface Props {
+  label?: string;
+  minHeight?: string;
+}
+const { label = '', minHeight = '300px' } = Astro.props;
+---
+<div class="placeholder" style={`min-height: ${minHeight}`}>
+  {label && <span class="placeholder-label mono">{label}</span>}
+</div>
+
+<style>
+  .placeholder {
+    background: #e8e4df;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .placeholder-label {
+    font-size: 0.62rem;
+    color: #9a9490;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+</style>

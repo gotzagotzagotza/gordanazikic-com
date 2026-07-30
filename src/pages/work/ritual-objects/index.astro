@@ -1,0 +1,71 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
+import Placeholder from '../../../components/Placeholder.astro';
+
+const projects = [
+  { title: "Red Deer", slug: "red-deer", meta: "Doctoral installation · FLU Gallery, Belgrade · 2018" },
+  { title: "Provisional Constellations", slug: "provisional-constellations", meta: "Collected objects arranged into installations and photographed · Ongoing" },
+  { title: "Layers of Memory", slug: "layers-of-memory", meta: "Archive as material · Rephotographed family images and objects as instax photo-objects" },
+  { title: "Wearable Objects", slug: "wearable-objects", meta: "Copper enamel, ceramic, cardboard · Works available on request" },
+  { title: "Ritual Photographs", slug: "ritual-photographs", meta: "Shamanic self-portraits conceived as prints · Archival pigment prints · Limited editions" },
+  { title: "Oracle Birds", slug: "oracle-birds", meta: "AI sculptural objects · In development" },
+  { title: "Shamanic Research", slug: "shamanic-research", meta: "Research notes, writing, links · Living page · Black Box (2015) as early seed" },
+];
+---
+
+<Layout title="Ritual Objects & Space — Gordana Zikic">
+  <Nav slot="nav" />
+
+  <div class="container section-page">
+    <header class="section-header">
+      <a href="/work" class="back mono">← Work</a>
+      <span class="section-rule"></span>
+      <h1>Ritual Objects & Space</h1>
+      <p class="mono section-type">Installation · Objects · Research</p>
+    </header>
+
+    <div class="projects-list">
+      {projects.map((p) => (
+        <a href={`/work/ritual-objects/${p.slug}`} class="project-row">
+          <div class="project-image">
+            <Placeholder label={p.title} minHeight="200px" />
+          </div>
+          <div class="project-info">
+            <h2 class="project-title">{p.title}</h2>
+            <p class="mono project-meta">{p.meta}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .section-page { padding-top: 3rem; padding-bottom: 4rem; }
+  .section-header { margin-bottom: 3rem; }
+  .back { display: inline-block; margin-bottom: 1.5rem; transition: color 0.15s; }
+  .back:hover { color: var(--accent); }
+  .section-header h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; margin-bottom: 0.5rem; }
+  .section-type { color: var(--muted); }
+  .projects-list { display: flex; flex-direction: column; gap: 0; }
+  .project-row {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 2rem;
+    align-items: start;
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    transition: none;
+  }
+  .project-row:hover .project-title { color: var(--accent); }
+  .project-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.4rem; transition: color 0.15s; }
+  .project-meta { color: var(--muted); font-size: 0.7rem; line-height: 1.6; }
+  .projects-list > a:last-child { border-bottom: 1px solid var(--border); }
+  @media (max-width: 640px) {
+    .project-row { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,126 @@
+---
+import Layout from './Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Placeholder from '../components/Placeholder.astro';
+import Lightbox from '../components/Lightbox.astro';
+
+interface Props {
+  title: string;
+  section: string;
+  sectionSlug: string;
+  type?: string;
+  meta?: string;
+  imageCount?: number;
+}
+
+const { title, section, sectionSlug, type, meta, imageCount = 6 } = Astro.props;
+---
+
+<Layout title={`${title} — Gordana Zikic`}>
+  <Nav slot="nav" />
+
+  <article class="project-page">
+    <div class="container">
+      <header class="project-header">
+        <a href={`/work/${sectionSlug}`} class="back mono">← {section}</a>
+        <h1 class="project-title">{title}</h1>
+        {meta && <p class="mono project-meta">{meta}</p>}
+        {type && <span class="type-tag mono">{type}</span>}
+      </header>
+
+      <div class="project-description">
+        <span class="section-rule"></span>
+        <slot name="description">
+          <p class="placeholder-text mono">[Text to be added]</p>
+        </slot>
+      </div>
+    </div>
+
+    <div class="container image-grid">
+      <slot name="images">
+        {Array.from({ length: imageCount }).map((_, i) => (
+          <div class="grid-item">
+            <Placeholder label={title} minHeight="280px" />
+          </div>
+        ))}
+      </slot>
+    </div>
+  </article>
+
+  <Lightbox />
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .project-page {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+  }
+
+  .project-header {
+    margin-bottom: 3rem;
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    transition: color 0.15s;
+  }
+  .back:hover { color: var(--accent); }
+
+  .project-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
+  }
+
+  .project-meta {
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .type-tag {
+    display: inline-block;
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .project-description {
+    max-width: var(--content-width);
+    margin-bottom: 3rem;
+  }
+
+  .placeholder-text {
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  .project-description :global(p) {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  .image-grid {
+    columns: 2;
+    column-gap: 1rem;
+  }
+
+  .grid-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
+  .grid-item :global(img) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .image-grid { columns: 1; }
+  }
+</style>

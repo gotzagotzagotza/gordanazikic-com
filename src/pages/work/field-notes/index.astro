@@ -1,0 +1,64 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
+import Placeholder from '../../../components/Placeholder.astro';
+
+const projects = [
+  { title: "Whispers", slug: "whispers", meta: "Photography across many cities · Perception and the restless mind" },
+  { title: "Resonance", slug: "resonance", meta: "Photography in one Spanish village · Stillness and attention" },
+];
+---
+
+<Layout title="Field Notes — Gordana Zikic">
+  <Nav slot="nav" />
+
+  <div class="container section-page">
+    <header class="section-header">
+      <a href="/work" class="back mono">← Work</a>
+      <span class="section-rule"></span>
+      <h1>Field Notes</h1>
+      <p class="mono section-type">Diaristic photography — the camera as a seeing practice</p>
+    </header>
+
+    <div class="projects-list">
+      {projects.map((p) => (
+        <a href={`/work/field-notes/${p.slug}`} class="project-row">
+          <div class="project-image">
+            <Placeholder label={p.title} minHeight="260px" />
+          </div>
+          <div class="project-info">
+            <h2 class="project-title">{p.title}</h2>
+            <p class="mono project-meta">{p.meta}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .section-page { padding-top: 3rem; padding-bottom: 4rem; }
+  .section-header { margin-bottom: 3rem; }
+  .back { display: inline-block; margin-bottom: 1.5rem; transition: color 0.15s; }
+  .back:hover { color: var(--accent); }
+  .section-header h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; margin-bottom: 0.5rem; }
+  .section-type { color: var(--muted); }
+  .projects-list { display: flex; flex-direction: column; gap: 3rem; }
+  .project-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+  }
+  .project-row:hover .project-title { color: var(--accent); }
+  .project-title { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 400; margin-bottom: 0.5rem; transition: color 0.15s; }
+  .project-meta { color: var(--muted); font-size: 0.7rem; line-height: 1.6; }
+  @media (max-width: 640px) {
+    .project-row { grid-template-columns: 1fr; gap: 1rem; }
+  }
+</style>

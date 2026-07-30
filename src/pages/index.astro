@@ -2,21 +2,24 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Placeholder from '../components/Placeholder.astro';
 ---
 
 <Layout title="Gordana Zikic — Interdisciplinary Artist">
   <Nav slot="nav" />
 
-  <section class="hero">
+  <section class="hero container">
     <div class="hero-image-wrap">
       <img
         src="/images/hero.jpg"
         alt="Gordana Zikic"
         class="hero-image"
         loading="eager"
-        onerror="this.style.display='none'"
+        id="hero-img"
       />
-      <div class="hero-image-fallback" aria-hidden="true"></div>
+      <div class="hero-placeholder" id="hero-placeholder" aria-hidden="true">
+        <Placeholder label="Hero image" minHeight="60vh" />
+      </div>
     </div>
     <div class="hero-name">
       <h1>Gordana Zikic</h1>
@@ -38,65 +41,68 @@ import Footer from '../components/Footer.astro';
 
 <style>
   .hero {
-    position: relative;
-    height: calc(100vh - var(--nav-height));
-    min-height: 500px;
+    padding-top: 3rem;
+    padding-bottom: 1rem;
     display: flex;
-    align-items: flex-end;
-    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
   }
 
   .hero-image-wrap {
-    position: absolute;
-    inset: 0;
+    width: 100%;
+    max-height: 70vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    max-width: 100%;
+    max-height: 70vh;
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: contain;
   }
 
-  .hero-image-fallback {
-    position: absolute;
-    inset: 0;
-    background: #2a2420;
-    z-index: -1;
+  .hero-placeholder {
+    width: 100%;
+    display: none;
+  }
+
+  .hero-placeholder.visible {
+    display: block;
   }
 
   .hero-name {
-    position: relative;
-    z-index: 1;
-    padding: 3rem;
-    color: #f7f4f0;
+    text-align: center;
+    padding: 2rem 0 1rem;
   }
 
   .hero-name h1 {
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-size: clamp(2.2rem, 5vw, 4rem);
     font-weight: 400;
     line-height: 1;
     margin-bottom: 0.5rem;
-    text-shadow: 0 1px 8px rgba(0,0,0,0.35);
   }
 
   .hero-subtitle {
-    color: rgba(247, 244, 240, 0.8);
+    color: var(--muted);
   }
 
   .intro {
-    padding: 5rem 2rem;
+    padding: 3rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    max-width: 680px;
+    max-width: 640px;
   }
 
   .intro-text {
-    font-size: 1.25rem;
-    line-height: 1.65;
-    color: var(--text);
+    font-size: 1.2rem;
+    line-height: 1.7;
   }
 
   .intro-link {
@@ -106,14 +112,20 @@ import Footer from '../components/Footer.astro';
     padding-bottom: 1px;
     transition: opacity 0.15s;
   }
+  .intro-link:hover { opacity: 0.75; }
+</style>
 
-  .intro-link:hover {
-    opacity: 0.75;
-  }
-
-  @media (max-width: 768px) {
-    .hero-name {
-      padding: 2rem 1.25rem;
+<script>
+  const img = document.getElementById('hero-img') as HTMLImageElement;
+  const ph = document.getElementById('hero-placeholder')!;
+  if (img) {
+    img.addEventListener('error', () => {
+      img.style.display = 'none';
+      ph.classList.add('visible');
+    });
+    if (img.complete && img.naturalWidth === 0) {
+      img.style.display = 'none';
+      ph.classList.add('visible');
     }
   }
-</style>
+</script>

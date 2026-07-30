@@ -1,0 +1,157 @@
+---
+// Drop this component onto any page that has a .lb-trigger class on images.
+// Call initLightbox() after the DOM is ready.
+---
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lb-close" id="lb-close" aria-label="Close">×</button>
+  <button class="lb-arrow lb-prev" id="lb-prev" aria-label="Previous">‹</button>
+  <button class="lb-arrow lb-next" id="lb-next" aria-label="Next">›</button>
+  <div class="lb-img-wrap">
+    <img src="" alt="" class="lb-image" id="lb-image" />
+  </div>
+  <div class="lb-counter mono" id="lb-counter"></div>
+</div>
+
+<style>
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 8, 6, 0.95);
+    z-index: 1000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+
+  .lb-img-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90vw;
+    max-height: 85vh;
+  }
+
+  .lb-image {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+  }
+
+  .lb-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+    font-family: var(--font-heading);
+    font-weight: 300;
+    transition: color 0.15s;
+    z-index: 2;
+  }
+  .lb-close:hover { color: white; }
+
+  .lb-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    font-size: 3rem;
+    cursor: pointer;
+    padding: 1rem;
+    line-height: 1;
+    font-family: var(--font-heading);
+    font-weight: 300;
+    transition: color 0.15s;
+    z-index: 2;
+    user-select: none;
+  }
+  .lb-arrow:hover { color: white; }
+  .lb-prev { left: 0.5rem; }
+  .lb-next { right: 0.5rem; }
+  .lb-arrow:disabled { opacity: 0.2; cursor: default; }
+
+  .lb-counter {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+  }
+</style>
+
+<script>
+  let images: HTMLImageElement[] = [];
+  let current = 0;
+
+  const lb = document.getElementById('lightbox')!;
+  const lbImg = document.getElementById('lb-image') as HTMLImageElement;
+  const lbCounter = document.getElementById('lb-counter')!;
+  const lbPrev = document.getElementById('lb-prev') as HTMLButtonElement;
+  const lbNext = document.getElementById('lb-next') as HTMLButtonElement;
+  const lbClose = document.getElementById('lb-close')!;
+
+  function showImage(index: number) {
+    current = index;
+    const img = images[current];
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    lbCounter.textContent = `${current + 1} / ${images.length}`;
+    lbPrev.disabled = current === 0;
+    lbNext.disabled = current === images.length - 1;
+  }
+
+  function open(index: number) {
+    showImage(index);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function collectImages() {
+    images = Array.from(document.querySelectorAll<HTMLImageElement>('.lb-trigger'));
+    images.forEach((img, i) => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => open(i));
+    });
+  }
+
+  lbPrev.addEventListener('click', () => { if (current > 0) showImage(current - 1); });
+  lbNext.addEventListener('click', () => { if (current < images.length - 1) showImage(current + 1); });
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft' && current > 0) showImage(current - 1);
+    if (e.key === 'ArrowRight' && current < images.length - 1) showImage(current + 1);
+  });
+
+  // Swipe support
+  let touchStartX = 0;
+  lb.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) < 40) return;
+    if (dx < 0 && current < images.length - 1) showImage(current + 1);
+    if (dx > 0 && current > 0) showImage(current - 1);
+  });
+
+  // Init on page load
+  document.addEventListener('DOMContentLoaded', collectImages);
+</script>

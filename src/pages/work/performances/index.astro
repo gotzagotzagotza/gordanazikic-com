@@ -1,0 +1,140 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
+import Placeholder from '../../../components/Placeholder.astro';
+import Lightbox from '../../../components/Lightbox.astro';
+
+const performances = [
+  { title: "Empty Head", year: "2024", location: "Araucaria Gallery, Barcelona" },
+  { title: "Black Rabbit is Taming the Time", year: "2025", location: "Gothenburg and Grangarde, Sweden" },
+  { title: "Dark Cloud and Gold Wind", year: "2024", location: "Fuerteventura, Canary Islands" },
+  { title: "Pulse", year: "2024", location: "The Local AIR, Valencia" },
+  { title: "Dodole", year: "2024", location: "Entresuelos, Barcelona" },
+  { title: "Kiss Me", year: "2024", location: "Barcelona" },
+  { title: "Home / Let It Be", year: "2023", location: "Entresuelos, Barcelona" },
+  { title: "Thank You and Good Bye", year: "2021–2023", location: "Belgrade" },
+  { title: "La Sombra", year: "2019", location: "Barcelona" },
+  { title: "Gold Wings", year: "2019", location: "Belgrade" },
+  { title: "Voice of the Rain", year: "2019", location: "Magacin, Belgrade" },
+  { title: "Cutting Off the Bonds", year: "2018", location: "Gothenburg" },
+  { title: "Rabbit", year: "2017", location: "Gothenburg" },
+  { title: "Seagulls", year: "2012", location: "Barcelona" },
+];
+---
+
+<Layout title="Performances — Gordana Zikic">
+  <Nav slot="nav" />
+
+  <div class="container section-page">
+    <header class="section-header">
+      <a href="/work" class="back mono">← Work</a>
+      <span class="section-rule"></span>
+      <h1>Performances</h1>
+    </header>
+
+    <div class="framing-text">
+      <p>
+        These works come from the same impulse as ritual: the need to cross a threshold and return changed.
+        A fear to face, a pattern to break, a passage to mark. The body is prepared — painted, dressed,
+        given objects — and the crossing happens in front of others.
+      </p>
+    </div>
+
+    <div class="performances-list">
+      {performances.map((p) => (
+        <div class="perf-item">
+          <div class="perf-info">
+            <h2 class="perf-title">{p.title}</h2>
+            <span class="mono perf-meta">{p.year} · {p.location}</span>
+          </div>
+          <div class="perf-image">
+            <Placeholder label={p.title} minHeight="200px" />
+          </div>
+          <div class="perf-text">
+            <p class="mono placeholder-text">[Text to be added]</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <Lightbox />
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .section-page { padding-top: 3rem; padding-bottom: 4rem; }
+  .section-header { margin-bottom: 2.5rem; }
+  .back { display: inline-block; margin-bottom: 1.5rem; transition: color 0.15s; }
+  .back:hover { color: var(--accent); }
+  .section-header h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; }
+
+  .framing-text {
+    max-width: var(--content-width);
+    margin-bottom: 3.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .framing-text p {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .performances-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .perf-item {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    grid-template-rows: auto auto;
+    column-gap: 3rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .perf-info {
+    grid-column: 1;
+    grid-row: 1;
+    padding-bottom: 1rem;
+  }
+
+  .perf-title {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+  }
+
+  .perf-meta {
+    color: var(--muted);
+    font-size: 0.68rem;
+  }
+
+  .perf-image {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+
+  .perf-text {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .placeholder-text {
+    font-size: 0.7rem;
+    color: #b0aba4;
+  }
+
+  @media (max-width: 640px) {
+    .perf-item { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .perf-image { grid-column: 1; grid-row: auto; margin-top: 1rem; }
+    .perf-text { grid-row: auto; }
+  }
+</style>
