@@ -120,6 +120,14 @@ const { title, section, sectionSlug, type, meta, imageCount = 6 } = Astro.props;
     display: block;
   }
 
+  .image-grid :global(img) {
+    width: 100%;
+    height: auto;
+    display: block;
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
   @media (max-width: 640px) {
     .image-grid { columns: 1; }
   }
