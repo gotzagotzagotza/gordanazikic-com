@@ -1,40 +1,284 @@
 ---
-import ProjectPage from '../../../layouts/ProjectPage.astro';
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
+
+const images = Array.from({ length: 16 }, (_, i) =>
+  `/images/el-mar-hirviendo/${String(i + 1).padStart(2, '0')}.jpg`
+);
+const total = images.length;
 ---
 
-<ProjectPage
-  title="El Mar Hirviendo"
-  section="The Sea"
-  sectionSlug="the-sea"
-  type="Photography · Painting · Video · Ongoing research"
-  meta="Ongoing · Barcelona, 2011–present · Solo exhibition: The Local AIR, Valencia, 2026"
->
-  <Fragment slot="images">
-    <img src="/images/el-mar-hirviendo/01.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/02.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/03.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/04.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/05.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/06.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/07.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/08.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/09.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/10.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/11.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/12.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/13.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/14.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/15.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-    <img src="/images/el-mar-hirviendo/16.jpg" alt="El Mar Hirviendo" class="lb-trigger" loading="lazy" />
-  </Fragment>
-  <Fragment slot="description">
-    <p>El Mar Hirviendo is a fifteen year observation of the surface of the sea, made from the same pier in Barcelona. I photograph and paint the water only from above, looking down without a horizon, only the surface.</p>
-    <p>I am afraid of deep water and for years I have dreamed of waves coming toward me. Observing the surface, imagining what lies beneath, photographing and painting it, is a way of staying present with something I cannot otherwise approach. This practice became a ritual. I stand at the same place, in different seasons and light, watching the water do its work. Over the years the photographs accumulated into an archive of hundreds of images of the same surface, where repetition reveals what a single visit never could.</p>
-    <p>For most of human history the sea was understood not as a landscape but as a living presence, a threshold to the world beneath the visible, kept in relation through ritual rather than looked at as a view. That older understanding is close to what this work is doing. The surface is where something present and active becomes visible without ever fully showing itself, and the practice is a way of staying in contact with what is underneath without pretending it can be seen or known.</p>
-    <p>To paint water without repeating its clichés I divide each photograph into a grid and paint each square as its own abstraction. The method gives me a way into something that resists being held all at once. Past a certain point, the method becomes the thing I have to escape, and I step back and ask whether the painting feels like the water rather than looks like it.</p>
-    <p>The title, the boiling sea, comes from how the surface looks photographed from above without a horizon. It appears to boil from within, agitated by forces invisible from above. The sea that looks calm from a distance is always moving underneath.</p>
-    <p>El Mar Hirviendo was shown as a solo exhibition at The Local AIR in Valencia in January 2026. It brought together for the first time works made over six years: paintings in black and white, paintings in deep blues, two drawings, and 220 photographs installed directly on the wall with blue tack. Each time the photographs are installed they are arranged differently, and the work becomes something else.</p>
-    <p>The two framed drawings were a large oil pastel made in nine separate pieces, each fragment abstract and following the same logic as the paintings, and a small pencil drawing on circular paper.</p>
-    <p>The exhibition also worked through sound and smell. On headphones there was a recording made at the same pier years earlier, waves and the distant voices of other people. And there was the scent of bitter orange flower, which I have encountered all over Barcelona and which became for me a symbol of the Mediterranean and the sea. As an essential oil it is called neroli, and I placed it on salt in two jars in the gallery. The experience of the sea is not only visual, and the exhibition tried to reconstruct that fullness. Paintings, photographs, sound, and smell, each arriving separately, each a fragment of the same sustained attention.</p>
-  </Fragment>
-</ProjectPage>
+<Layout title="El Mar Hirviendo — Gordana Zikic">
+  <Nav slot="nav" />
+
+  <div class="project-split">
+
+    <!-- LEFT: Image viewer -->
+    <div class="split-viewer">
+      <div class="viewer-stage" id="viewer-stage">
+
+        {images.map((src, i) => (
+          <div class={`viewer-slide${i === 0 ? ' active' : ''}`} data-index={i}>
+            <img
+              src={src}
+              alt={`El Mar Hirviendo — image ${i + 1}`}
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+          </div>
+        ))}
+
+        <button class="nav-zone nav-prev" id="nav-prev" aria-label="Previous image" tabindex="0"></button>
+        <button class="nav-zone nav-next" id="nav-next" aria-label="Next image" tabindex="0"></button>
+        <div class="viewer-counter" id="viewer-counter">1 / {total}</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Text -->
+    <div class="split-text">
+      <header class="project-header">
+        <a href="/work/the-sea" class="back mono">← The Sea</a>
+        <h1>El Mar Hirviendo</h1>
+        <p class="mono project-meta">Ongoing · Barcelona, 2011–present · Solo exhibition: The Local AIR, Valencia, 2026</p>
+        <span class="type-tag mono">Photography · Painting · Video · Ongoing research</span>
+      </header>
+
+      <span class="section-rule"></span>
+
+      <div class="project-description">
+        <p>El Mar Hirviendo is a fifteen year observation of the surface of the sea, made from the same pier in Barcelona. I photograph and paint the water only from above, looking down without a horizon, only the surface.</p>
+        <p>I am afraid of deep water and for years I have dreamed of waves coming toward me. Observing the surface, imagining what lies beneath, photographing and painting it, is a way of staying present with something I cannot otherwise approach. This practice became a ritual. I stand at the same place, in different seasons and light, watching the water do its work. Over the years the photographs accumulated into an archive of hundreds of images of the same surface, where repetition reveals what a single visit never could.</p>
+        <p>For most of human history the sea was understood not as a landscape but as a living presence, a threshold to the world beneath the visible, kept in relation through ritual rather than looked at as a view. That older understanding is close to what this work is doing. The surface is where something present and active becomes visible without ever fully showing itself, and the practice is a way of staying in contact with what is underneath without pretending it can be seen or known.</p>
+        <p>To paint water without repeating its clichés I divide each photograph into a grid and paint each square as its own abstraction. The method gives me a way into something that resists being held all at once. Past a certain point, the method becomes the thing I have to escape, and I step back and ask whether the painting feels like the water rather than looks like it.</p>
+        <p>The title, the boiling sea, comes from how the surface looks photographed from above without a horizon. It appears to boil from within, agitated by forces invisible from above. The sea that looks calm from a distance is always moving underneath.</p>
+        <p>El Mar Hirviendo was shown as a solo exhibition at The Local AIR in Valencia in January 2026. It brought together for the first time works made over six years: paintings in black and white, paintings in deep blues, two drawings, and 220 photographs installed directly on the wall with blue tack. Each time the photographs are installed they are arranged differently, and the work becomes something else.</p>
+        <p>The two framed drawings were a large oil pastel made in nine separate pieces, each fragment abstract and following the same logic as the paintings, and a small pencil drawing on circular paper.</p>
+        <p>The exhibition also worked through sound and smell. On headphones there was a recording made at the same pier years earlier, waves and the distant voices of other people. And there was the scent of bitter orange flower, which I have encountered all over Barcelona and which became for me a symbol of the Mediterranean and the sea. As an essential oil it is called neroli, and I placed it on salt in two jars in the gallery. The experience of the sea is not only visual, and the exhibition tried to reconstruct that fullness. Paintings, photographs, sound, and smell, each arriving separately, each a fragment of the same sustained attention.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <Footer slot="footer" />
+</Layout>
+
+<script>
+  const stage = document.getElementById('viewer-stage') as HTMLElement;
+  const counter = document.getElementById('viewer-counter') as HTMLElement;
+  const slides = Array.from(stage.querySelectorAll<HTMLElement>('.viewer-slide'));
+  const total = slides.length;
+  let current = 0;
+
+  function goTo(i: number) {
+    slides[current].classList.remove('active');
+    current = (i + total) % total;
+    slides[current].classList.add('active');
+    counter.textContent = `${current + 1} / ${total}`;
+  }
+
+  document.getElementById('nav-prev')!.addEventListener('click', () => goTo(current - 1));
+  document.getElementById('nav-next')!.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  // Swipe support
+  let touchStartX = 0;
+  stage.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+  });
+</script>
+
+<style>
+  /* ── Split layout ── */
+  .project-split {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    min-height: calc(100vh - var(--nav-height));
+    align-items: start;
+  }
+
+  /* ── Viewer (left column) ── */
+  .split-viewer {
+    position: sticky;
+    top: var(--nav-height);
+    height: calc(100vh - var(--nav-height));
+  }
+
+  .viewer-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .viewer-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  .viewer-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .viewer-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  /* Click zones */
+  .nav-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 10;
+  }
+  .nav-prev { left: 0; cursor: w-resize; }
+  .nav-next { right: 0; cursor: e-resize; }
+  .nav-zone:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+
+  /* Counter */
+  .viewer-counter {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  /* ── Text (right column) ── */
+  .split-text {
+    padding: 3rem 3rem 5rem 2.5rem;
+    overflow-y: auto;
+  }
+
+  .project-header {
+    margin-bottom: 2rem;
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    transition: color 0.15s;
+  }
+  .back:hover { color: var(--accent); }
+
+  h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-meta {
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    font-size: 0.7rem;
+    line-height: 1.6;
+  }
+
+  .type-tag {
+    display: inline-block;
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .section-rule {
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    margin: 2rem 0 1.5rem;
+  }
+
+  .project-description p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .project-split {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .split-viewer {
+      position: static;
+      height: auto;
+    }
+
+    .viewer-stage {
+      position: relative;
+      height: auto;
+      width: calc(100% - 32px);
+      margin: 1.5rem 16px 0;
+      background: transparent;
+    }
+
+    .viewer-slide {
+      position: static;
+      display: none;
+      opacity: 1;
+      pointer-events: auto;
+      transition: none;
+    }
+
+    .viewer-slide.active {
+      display: flex;
+    }
+
+    .viewer-slide img {
+      width: 100%;
+      height: auto;
+      max-height: none;
+    }
+
+    .nav-zone {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+    .nav-prev { left: 0; }
+    .nav-next { right: 0; }
+
+    .viewer-counter {
+      position: static;
+      display: block;
+      text-align: right;
+      padding: 0.5rem 0 0;
+      color: var(--muted);
+    }
+
+    .split-text {
+      padding: 2rem 1.25rem 4rem;
+    }
+  }
+</style>
